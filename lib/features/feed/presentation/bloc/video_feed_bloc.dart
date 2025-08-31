@@ -1,13 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../data/services/video_service.dart';
+import '../../data/repositories/video_repository.dart';
 import '../../data/models/video_model.dart';
 import 'video_feed_event.dart';
 import 'video_feed_state.dart';
 
 class VideoFeedBloc extends Bloc<VideoFeedEvent, VideoFeedState> {
-  final VideoService _videoService;
+  final VideoRepository _videoService;
 
-  VideoFeedBloc({required VideoService videoService})
+  VideoFeedBloc({required VideoRepository videoService})
     : _videoService = videoService,
       super(const VideoFeedInitial()) {
     on<FetchVideoRecommendations>(_onFetchVideoRecommendations);

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
 import '../../data/models/video_model.dart';
-import '../../data/services/video_service.dart';
+import '../../data/repositories/video_repository.dart';
 import '../pages/full_screen_player_page.dart';
 
 class VideoPlayerItem extends StatefulWidget {
@@ -135,7 +135,7 @@ class VideoPlayerWidgetState extends State<VideoPlayerWidget> {
   VideoPlayerController? _videoPlayerController;
   ChewieController? _chewieController;
   bool _isInitialized = false;
-  final VideoService _videoService = VideoService();
+  final VideoRepository _videoService = VideoRepository();
 
   void play() {
     _videoPlayerController?.play();
@@ -227,7 +227,6 @@ class _VideoMetadataOverlay extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // hashtags (could be dynamic later)
           Wrap(
             spacing: 8,
             children: const [
@@ -237,7 +236,7 @@ class _VideoMetadataOverlay extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          // meta info row
+
           Row(
             children: [
               const _MetaInfo(icon: Icons.location_pin, text: 'Russia, Sochi'),
@@ -339,7 +338,7 @@ class _VideoUserOverlay extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    //checkmark
+
                     const Padding(
                       padding: EdgeInsets.only(left: 4.0),
                       child: Icon(

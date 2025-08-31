@@ -1,16 +1,32 @@
-# interesno_itochka
+# 📱 Video Feed Test Project
 
-A new Flutter project.
+A Flutter test project implementing a **TikTok/Reels-style vertical video feed** powered by the [интересно и точка](https://interesnoitochka.ru) API.  
+The app demonstrates API integration, vertical paging, video playback, and smooth UI overlays.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## ✨ Features
+- Vertical **scrollable video feed** with peeking effect (next/previous video partially visible).
+- **Preview autoplay** (muted, starts after delay).
+- Tap-to-open full **video player with sound** and animated transition.
+- Overlay with metadata (hashtags, location, views, duration).
+- API integration with HLS video streaming.
 
-A few resources to get you started if this is your first Flutter project:
+---
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## 🚀 Getting Started
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Prerequisites
+- [Flutter SDK](https://flutter.dev/docs/get-started/install) (>= 3.19)
+- Xcode / Android Studio for iOS or Android builds
+
+## 🛠 Tech Stack
+- Flutter (UI framework)
+- video_player (HLS playback)
+- http (API requests)
+- PageView (vertical scrolling feed)
+## 📡 API References
+- Video recommendations: 
+- GET /api/v1/videos/recommendations
+- HLS playlist:
+- GET /api/v1/videos/video/{video_id}/hls/playlist.m3u8

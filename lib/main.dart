@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'features/feed/presentation/pages/video_feed_page.dart';
 import 'features/feed/presentation/bloc/video_feed_bloc.dart';
-import 'features/feed/data/services/video_service.dart';
+import 'features/feed/data/repositories/video_repository.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<VideoFeedBloc>(
-          create: (context) => VideoFeedBloc(videoService: VideoService()),
+          create: (context) => VideoFeedBloc(videoService: VideoRepository()),
         ),
       ],
       child: MaterialApp(

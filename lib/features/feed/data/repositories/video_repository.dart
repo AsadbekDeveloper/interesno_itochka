@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../models/video_model.dart';
 
-class VideoService {
+class VideoRepository {
   static const String _baseUrl = 'https://interesnoitochka.ru/api/v1';
 
   Future<List<VideoModel>> fetchRecommendations({

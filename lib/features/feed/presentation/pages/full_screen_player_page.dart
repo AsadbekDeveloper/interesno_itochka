@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
 import '../../data/models/video_model.dart';
-import '../../data/services/video_service.dart';
+import '../../data/repositories/video_repository.dart';
 
 class FullScreenPlayerPage extends StatefulWidget {
   final VideoModel video;
@@ -16,7 +16,7 @@ class FullScreenPlayerPage extends StatefulWidget {
 class FullScreenPlayerPageState extends State<FullScreenPlayerPage> {
   VideoPlayerController? _videoPlayerController;
   ChewieController? _chewieController;
-  final VideoService _videoService = VideoService();
+  final VideoRepository _videoService = VideoRepository();
 
   @override
   void initState() {
@@ -47,7 +47,7 @@ class FullScreenPlayerPageState extends State<FullScreenPlayerPage> {
           );
         },
       );
-      _videoPlayerController!.setVolume(1.0); // Play with sound enabled
+      _videoPlayerController!.setVolume(1.0);
       setState(() {});
     } catch (e) {
       debugPrint('Error initializing full screen video player: $e');
