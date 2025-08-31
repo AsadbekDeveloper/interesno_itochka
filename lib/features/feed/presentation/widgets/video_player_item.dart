@@ -93,6 +93,7 @@ class VideoPlayerItemState extends State<VideoPlayerItem> {
             VideoPreview(video: widget.video),
             if (_showVideo)
               VideoPlayerWidget(key: _playerKey, video: widget.video),
+            _VideoUserOverlay(video: widget.video),
             _VideoMetadataOverlay(video: widget.video),
           ],
         ),
@@ -226,47 +227,138 @@ class _VideoMetadataOverlay extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            video.title,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
+          // hashtags (could be dynamic later)
+          Wrap(
+            spacing: 8,
+            children: const [
+              _TagChip('#funny'),
+              _TagChip('#cats'),
+              _TagChip('#memes'),
+            ],
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 12),
+          // meta info row
           Row(
             children: [
-              CircleAvatar(
-                backgroundImage: NetworkImage(video.channelAvatar),
-                radius: 16,
-              ),
-              const SizedBox(width: 8),
-              Text(
-                video.channelName,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
+              const _MetaInfo(icon: Icons.location_pin, text: 'Russia, Sochi'),
+              const Spacer(),
+              _MetaInfo(
+                icon: Icons.remove_red_eye_outlined,
+                text: '${video.numbersViews}',
               ),
               const SizedBox(width: 16),
-              const Icon(Icons.visibility, color: Colors.white, size: 16),
-              const SizedBox(width: 4),
-              Text(
-                '${video.numbersViews} views',
-                style: const TextStyle(color: Colors.white, fontSize: 14),
-              ),
-              const SizedBox(width: 16),
-              const Icon(Icons.timer, color: Colors.white, size: 16),
-              const SizedBox(width: 4),
-              Text(
-                '${video.durationSec ~/ 60}:${(video.durationSec % 60).toString().padLeft(2, '0')}',
-                style: const TextStyle(color: Colors.white, fontSize: 14),
+              _MetaInfo(
+                icon: Icons.timer_outlined,
+                text:
+                    '${video.durationSec ~/ 60}:${(video.durationSec % 60).toString().padLeft(2, '0')}',
               ),
             ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _TagChip extends StatelessWidget {
+  final String text;
+  const _TagChip(this.text);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+      decoration: BoxDecoration(
+        color: Colors.black26,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Text(
+        text,
+        style: const TextStyle(color: Colors.white, fontSize: 14),
+      ),
+    );
+  }
+}
+
+class _MetaInfo extends StatelessWidget {
+  final IconData icon;
+  final String text;
+
+  const _MetaInfo({required this.icon, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(icon, color: Colors.white, size: 16),
+        const SizedBox(width: 4),
+        Text(text, style: const TextStyle(color: Colors.white, fontSize: 14)),
+      ],
+    );
+  }
+}
+
+class _VideoUserOverlay extends StatelessWidget {
+  final VideoModel video;
+
+  const _VideoUserOverlay({required this.video});
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      top: 20,
+      left: 20,
+      right: 20,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 80,
+            height: 80,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: Colors.white, width: 2),
+              image: DecorationImage(
+                image: NetworkImage(video.channelAvatar),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      '@${video.channelName}',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    //checkmark
+                    const Padding(
+                      padding: EdgeInsets.only(left: 4.0),
+                      child: Icon(
+                        Icons.check_circle,
+                        color: Colors.blue,
+                        size: 16,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  video.title,
+                  style: const TextStyle(color: Colors.white, fontSize: 14),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
           ),
         ],
       ),

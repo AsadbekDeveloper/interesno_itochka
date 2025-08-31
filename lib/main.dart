@@ -24,8 +24,10 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        title: 'Interesno i Tochka',
+        title: 'Flutter Video Feed',
         debugShowCheckedModeBanner: false,
+        themeMode: ThemeMode.dark,
+        darkTheme: ThemeData.dark(),
         home: const VideoFeedPage(),
       ),
     );

@@ -37,6 +37,7 @@ class FullScreenPlayerPageState extends State<FullScreenPlayerPage> {
         aspectRatio: _videoPlayerController!.value.aspectRatio,
         looping: true,
         autoPlay: true,
+        showOptions: false,
         errorBuilder: (context, errorMessage) {
           return Center(
             child: Text(
@@ -81,7 +82,17 @@ class FullScreenPlayerPageState extends State<FullScreenPlayerPage> {
               top: 10,
               left: 10,
               child: IconButton(
-                icon: const Icon(Icons.arrow_back, color: Colors.white),
+                icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ),
+            Positioned(
+              top: 10,
+              right: 10,
+              child: IconButton(
+                icon: const Icon(Icons.send, color: Colors.white),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
